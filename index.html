@@ -11,6 +11,7 @@
     
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
@@ -66,7 +67,6 @@
                 <div class="hero__content">
                     <h1 class="hero__title">
                         Olá, eu sou <span class="hero__highlight">Thayse Dias</span>
-                           
                     </h1>
                     <p class="hero__description">
                         Combino expertise técnica com uma visão estratégica voltada para o usuário, 
@@ -94,7 +94,7 @@
                 
                 <div class="hero__image">
                     <div class="image__container">
-                        <img src="assets\imagens\Thayse Dias.jpg" alt="Thayse Dias" class="profile-img">
+                        <img src="assets/imagens/Thayse-Dias.jpg" alt="Thayse Dias" class="profile-img">
                     </div>
                 </div>
             </div>
@@ -177,52 +177,56 @@
                 </div>
             </div>
         </section>
-        <!-- Certificados -->
-    <section class="certificates section" id="certificates">
-        <div class="container">
-            <h2 class="section__title">Certificados</h2>
-            <div class="certificates__grid">
-                <div class="certificate__card">
-                    <img src="assets\certificados\Postman_doZeroaoAvancado.jpg" alt="Postman" loading="lazy">
-                    <h3>Postman do Zero ao Avançado</h3>
-                    <p>Udemy</p>
-                    <a href="https://www.udemy.com/certificate/UC-dc6d517c-ad17-4292-8c89-5aede4781492/" target="_blank" class="btn btn--primary">Ver →</a>
+        
+        <!-- Certificados Section -->
+        <section class="certificates section" id="certificates">
+            <div class="container">
+                <h2 class="section__title">Certificados</h2>
+                <div class="certificates__grid">
+                    <div class="certificate__card">
+                        <img src="assets/certificados/Postman_doZeroaoAvancado.jpg" alt="Postman" loading="lazy">
+                        <h3>Postman do Zero ao Avançado</h3>
+                        <p>Udemy</p>
+                        <a href="https://www.udemy.com/certificate/UC-dc6d517c-ad17-4292-8c89-5aede4781492/" target="_blank" class="btn btn--primary">Ver →</a>
+                    </div>
+
+                    <div class="certificate__card">
+                        <img src="assets/certificados/Grafana.jpg" alt="Grafana" loading="lazy">
+                        <h3>Grafana: Dashboards Gerenciais e Monitoramento</h3>
+                        <p>Udemy</p>
+                        <a href="https://www.udemy.com/certificate/UC-5d5aab7a-e875-46e7-9e08-155ddf388638/" target="_blank" class="btn btn--primary">Ver →</a>
+                    </div>
+
+                    <div class="certificate__card">
+                        <img src="assets/certificados/SQL.jpg" alt="SQL" loading="lazy">
+                        <h3>SQL para Análise de Dados: Do básico ao avançado</h3>
+                        <p>Udemy</p>
+                        <a href="https://www.udemy.com/certificate/UC-334b2361-a242-47e6-8045-369d0bcce0f2/" target="_blank" class="btn btn--primary">Ver →</a>
+                    </div>
+
+                    <div class="certificate__card">
+                        <img src="assets/certificados/Automacao_Testes_com_Cypress.jpg" alt="Cypress" loading="lazy">
+                        <h3>Automação de Testes com Cypress</h3>
+                        <p>Lume Stack</p>
+                        <a href="#" class="btn btn--primary">Ver →</a>
+                    </div>
+
+                    <div class="certificate__card">
+                        <img src="assets/certificados/Programacao_Basica_JavaScript.jpg" alt="JavaScript" loading="lazy">
+                        <h3>Programação Básica Focada para QA em JavaScript</h3>
+                        <p>Lume Stack</p>
+                        <a href="#" class="btn btn--primary">Ver →</a>
+                    </div>
+
+                    <div class="certificate__card">
+                        <img src="assets/certificados/Testes_de_API.jpg" alt="API" loading="lazy">
+                        <h3>Testes de API</h3>
+                        <p>Lume Stack</p>
+                        <a href="#" class="btn btn--primary">Ver →</a>
+                    </div>
                 </div>
-
-                <div class="certificate__card">
-                    <img src="assets\certificados\Grafana.jpg" alt="Grafana" loading="lazy">
-                    <h3>Grafana: Dashboards Gerenciais e Monitoramento</h3>
-                    <p>Udemy</p>
-                    <a href="https://www.udemy.com/certificate/UC-5d5aab7a-e875-46e7-9e08-155ddf388638/" target="_blank" class="btn btn--primary">Ver →</a>
-                </div>
-
-                <div class="certificate__card">
-                    <img src="assets\certificados\SQL.jpg" alt="SQL" loading="lazy">
-                    <h3>SQL para Análise de Dados: Do básico ao avançado</h3>
-                    <p>Udemy</p>
-                    <a href="https://www.udemy.com/certificate/UC-334b2361-a242-47e6-8045-369d0bcce0f2/" target="_blank" class="btn btn--primary">Ver →</a>
             </div>
-
-                <div class="certificate__card">
-                    <img src="assets\certificados\Automacao_Testes_com_Cypress.jpg" alt="Cypress" loading="lazy">
-                    <h3>Automação de Testes com Cypress</h3>
-                    <p>Lume Stack</p>
-            </div>
-
-                <div class="certificate__card">
-                    <img src="assets\certificados\Programacao_Basica_JavaScript.jpg" alt="JavaScript" loading="lazy">
-                    <h3>Programação Básica Focada para QA em JavaScript</h3>
-                    <p>Lume Stack</p>
-
-            </div>
-
-            <div class="certificate__card">
-                    <img src="assets\certificados\Testes_de_API.jpg" alt="API" loading="lazy">
-                    <h3>Testes de API</h3>
-                    <p>Lume Stack</p>
-
-
-    </section>
+        </section>
 
         <!-- QA Section -->
         <section class="qa section" id="qa">
@@ -626,49 +630,42 @@
             </div>
         </section>
 
-        <!-- Study Sites Section - Cards alinhados horizontalmente -->
+        <!-- Study Sites Section -->
         <section class="study section" id="study">
             <div class="container">
                 <h2 class="section__title">Com quem estudar?</h2>
                 <div class="study__grid">
-                    <div class="study__card">
+                    <div class="study__item">
                         <div class="study__image">
-                            <img src="assets/imagens/Hora do QA.jpg" alt="Hora do QA">
+                            <img src="assets/imagens/Hora-do-QA.jpg" alt="Hora do QA">
                         </div>
                         <div class="study__content">
-                            <h3 class="study__title">Hora do QA</h3>
-                            <p class="study__description">
-                                Canal no YouTube com diversos conteúdos sobre Quality Assurance e Testes de Software.
-                            </p>
+                            <h3>Hora do QA</h3>
+                            <p>Canal no YouTube com diversos conteúdos sobre Quality Assurance e Testes de Software.</p>
                             <a href="https://www.youtube.com/@horadoqa" target="_blank" class="btn btn--primary">Acessar Canal</a>
                         </div>
                     </div>
                     
-                    <div class="study__card">
+                    <div class="study__item">
                         <div class="study__image">
                             <img src="assets/imagens/LumeStack.jpg" alt="Lume Stack">
                         </div>
                         <div class="study__content">
-                            <h3 class="study__title">Lume Stack</h3>
-                            <p class="study__description">
-                                Canal no YouTube do Many | Testes e Qualidade de Software.
-                            </p>
+                            <h3>Lume Stack</h3>
+                            <p>Canal no YouTube do Many | Testes e Qualidade de Software.</p>
                             <a href="https://www.youtube.com/@lumestack" target="_blank" class="btn btn--primary">Acessar Canal</a>
                         </div>
                     </div>
                     
-                    <div class="study__card">
+                    <div class="study__item">
                         <div class="study__image">
                             <img src="assets/imagens/JulioLima.jpg" alt="Julio de Lima">
                         </div>
                         <div class="study__content">
-                            <h3 class="study__title">Julio de Lima</h3>
-                            <p class="study__description">
-                                Canal no YouTube que tem ajudado a disseminar a disciplina de testes de software.
-                            </p>
+                            <h3>Julio de Lima</h3>
+                            <p>Canal no YouTube que tem ajudado a disseminar a disciplina de testes de software.</p>
                             <a href="https://www.youtube.com/@JuliodeLimas" target="_blank" class="btn btn--primary">Acessar Canal</a>
                         </div>
-
                     </div>
                 </div>
             </div>
