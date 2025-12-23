@@ -1,179 +1,182 @@
-// Main JavaScript
-document.addEventListener('DOMContentLoaded', function() {
+// ======== Utils ========
+
+// Throttle para reduzir chamadas em scroll
+function throttle(fn, delay = 100) {
+    let last = 0;
+    return (...args) => {
+        const now = Date.now();
+        if (now - last >= delay) {
+            last = now;
+            fn(...args);
+        }
+    };
+}
+
+// ======== Inicialização ========
+
+document.addEventListener('DOMContentLoaded', () => {
     initNavigation();
     initAnimations();
     initContactForm();
     initScrollTop();
-    
+
     console.log('Portfolio loaded successfully!');
 });
 
-// Navigation Functions
+// ======== Navegação ========
+
 function initNavigation() {
     const navToggle = document.getElementById('nav-toggle');
     const navMenu = document.getElementById('nav-menu');
     const navLinks = document.querySelectorAll('.nav__link');
     const header = document.querySelector('.header');
-    
-    // Toggle mobile menu
+    const sections = document.querySelectorAll('section');
+
+    // Toggle do menu mobile
     if (navToggle) {
-        navToggle.addEventListener('click', function() {
+        navToggle.addEventListener('click', () => {
             navMenu.classList.toggle('active');
             navToggle.classList.toggle('active');
         });
     }
-    
-    // Close mobile menu when clicking on a link
+
+    // Fechar menu ao clicar
     navLinks.forEach(link => {
-        link.addEventListener('click', function() {
+        link.addEventListener('click', () => {
             navMenu.classList.remove('active');
             navToggle.classList.remove('active');
         });
     });
-    
-    // Header scroll effect
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 100) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-    });
-    
-    // Active link highlighting
-    window.addEventListener('scroll', function() {
-        const sections = document.querySelectorAll('section');
-        const navLinks = document.querySelectorAll('.nav__link');
-        
-        let current = '';
-        
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            
-            if (window.scrollY >= (sectionTop - 200)) {
-                current = section.getAttribute('id');
-            }
-        });
-        
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${current}`) {
-                link.classList.add('active');
-            }
-        });
-    });
-}
 
-// Animation Functions
-function initAnimations() {
-    // Animate skill bars on scroll
-    const skillBars = document.querySelectorAll('.skill__level');
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const level = entry.target.getAttribute('data-level');
-                entry.target.style.width = `${level}%`;
-            }
-        });
-    }, { threshold: 0.5 });
-    
-    skillBars.forEach(bar => {
-        observer.observe(bar);
-    });
-}
+    // Scroll otimizado
+    window.addEventListener(
+        'scroll',
+        throttle(() => {
+            const scrollY = window.scrollY;
 
-// Contact Form Handling
-function initContactForm() {
-    const contactForm = document.getElementById('contact-form');
-    
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = new FormData(contactForm);
-            const data = Object.fromEntries(formData);
-            
-            // Simple validation
-            if (!data.name || !data.email || !data.subject || !data.message) {
-                showNotification('Por favor, preencha todos os campos.', 'error');
-                return;
-            }
-            
-            // Simulate form submission
-            showNotification('Mensagem enviada com sucesso! Entrarei em contato em breve.', 'success');
-            contactForm.reset();
-        });
-    }
-}
+            // Efeito no header
+            header.classList.toggle('scrolled', scrollY > 100);
 
-// Scroll to Top Functionality
-function initScrollTop() {
-    const scrollTopBtn = document.getElementById('scroll-top');
-    
-    if (scrollTopBtn) {
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 500) {
-                scrollTopBtn.classList.add('show');
-            } else {
-                scrollTopBtn.classList.remove('show');
-            }
-        });
-        
-        scrollTopBtn.addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
+            // Destacar link ativo
+            let current = '';
+            sections.forEach(section => {
+                if (scrollY >= section.offsetTop - 200) {
+                    current = section.id;
+                }
             });
-        });
-    }
+
+            navLinks.forEach(link => {
+                link.classList.toggle(
+                    'active',
+                    link.getAttribute('href') === `#${current}`
+                );
+            });
+        }, 120)
+    );
 }
 
-// Notification System
+// ======== Animação das Skills ========
+
+function initAnimations() {
+    const bars = document.querySelectorAll('.skill__level');
+
+    if (!bars.length) return;
+
+    const observer = new IntersectionObserver(
+        entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.width =
+                        entry.target.getAttribute('data-level') + '%';
+                }
+            });
+        },
+        { threshold: 0.5 }
+    );
+
+    bars.forEach(bar => observer.observe(bar));
+}
+
+// ======== Formulário de Contato ========
+
+function initContactForm() {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+
+        const data = Object.fromEntries(new FormData(form));
+
+        if (!data.name || !data.email || !data.subject || !data.message) {
+            showNotification('Por favor, preencha todos os campos.', 'error');
+            return;
+        }
+
+        showNotification(
+            'Mensagem enviada com sucesso! Entrarei em contato em breve.',
+            'success'
+        );
+
+        form.reset();
+    });
+}
+
+// ======== Scroll Top ========
+
+function initScrollTop() {
+    const btn = document.getElementById('scroll-top');
+    if (!btn) return;
+
+    window.addEventListener(
+        'scroll',
+        throttle(() => {
+            btn.classList.toggle('show', window.scrollY > 500);
+        }, 120)
+    );
+
+    btn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
+// ======== Sistema de Notificações ========
+
 function showNotification(message, type = 'info') {
-    // Create notification element
     const notification = document.createElement('div');
     notification.className = `notification notification--${type}`;
     notification.innerHTML = `
         <span class="notification__message">${message}</span>
         <button class="notification__close">&times;</button>
     `;
-    
-    // Add styles if not already added
-    if (!document.querySelector('#notification-styles')) {
-        const styles = document.createElement('style');
-        styles.id = 'notification-styles';
-        styles.textContent = `
+
+    // Injeta estilos somente 1 vez
+    if (!document.getElementById('notification-styles')) {
+        const style = document.createElement('style');
+        style.id = 'notification-styles';
+        style.textContent = `
             .notification {
                 position: fixed;
                 top: 100px;
                 right: 30px;
-                background: white;
+                background: #fff;
                 padding: 15px 20px;
                 border-radius: 8px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+                box-shadow: 0 10px 30px rgba(0,0,0,0.15);
                 display: flex;
                 align-items: center;
                 gap: 15px;
-                z-index: 10000;
+                z-index: 9999;
                 transform: translateX(400px);
-                transition: transform 0.3s ease;
-                max-width: 400px;
+                transition: transform .3s ease;
             }
-            .notification.show {
-                transform: translateX(0);
-            }
-            .notification--success {
-                border-left: 4px solid #48bb78;
-            }
-            .notification--error {
-                border-left: 4px solid #f56565;
-            }
-            .notification--info {
-                border-left: 4px solid #4299e1;
-            }
+            .notification.show { transform: translateX(0); }
+            .notification--success { border-left: 4px solid #48bb78; }
+            .notification--error { border-left: 4px solid #f56565; }
+            .notification--info { border-left: 4px solid #4299e1; }
             .notification__close {
                 background: none;
                 border: none;
@@ -182,31 +185,24 @@ function showNotification(message, type = 'info') {
                 color: #718096;
             }
         `;
-        document.head.appendChild(styles);
+        document.head.appendChild(style);
     }
-    
+
     document.body.appendChild(notification);
-    
-    // Show notification
-    setTimeout(() => notification.classList.add('show'), 100);
-    
-    // Auto remove after 5 seconds
+
+    setTimeout(() => notification.classList.add('show'), 20);
+
+    // Auto-remove
     setTimeout(() => {
         notification.classList.remove('show');
-        setTimeout(() => {
-            if (notification.parentNode) {
-                notification.parentNode.removeChild(notification);
-            }
-        }, 300);
+        setTimeout(() => notification.remove(), 300);
     }, 5000);
-    
-    // Close on click
-    notification.querySelector('.notification__close').addEventListener('click', function() {
-        notification.classList.remove('show');
-        setTimeout(() => {
-            if (notification.parentNode) {
-                notification.parentNode.removeChild(notification);
-            }
-        }, 300);
-    });
+
+    // Clique para fechar
+    notification
+        .querySelector('.notification__close')
+        .addEventListener('click', () => {
+            notification.classList.remove('show');
+            setTimeout(() => notification.remove(), 300);
+        });
 }

@@ -1,0 +1,47 @@
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+
+    .nav__toggle {
+        display: flex;
+    }
+
+    .nav__menu {
+        position: absolute;
+        top: 70px;
+        right: 0;
+        background: var(--white);
+        width: 70%;
+        height: 100vh;
+        flex-direction: column;
+        padding: 40px 20px;
+        gap: 1.5rem;
+        transform: translateX(100%);
+        transition: 0.3s;
+    }
+
+    .nav__menu.active {
+        transform: translateX(0);
+    }
+
+    .certificates__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .home__title {
+        font-size: 2rem;
+    }
+}
+
+/* ===== TABLET ===== */
+@media (min-width: 768px) and (max-width: 992px) {
+    .certificates__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ===== ULTRAWIDE ===== */
+@media (min-width: 1600px) {
+    .container {
+        max-width: 1500px;
+    }
+}
